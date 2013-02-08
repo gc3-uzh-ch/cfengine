@@ -1,0 +1,2 @@
+shlibs:Depends=cfengine-community, libc6.1 (>= 2.3.3), libpcre3 (>= 8.10), libssl1.0.0 (>= 1.0.0), libtokyocabinet9 (>= 1.4.47), libxml2 (>= 2.7.4)
+misc:Depends=

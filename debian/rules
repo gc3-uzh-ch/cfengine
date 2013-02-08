@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+# vim:noet:ts=4:sw=4:
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_autoreconf
+	./configure \
+		--without-nova \
+		--without-constellation \
+		--without-mysql --without-postgresql \
+		CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs"
+
+override_dh_clean:
+	dh_autoreconf_clean
+	dh_clean
+
+override_dh_compress:
+	dh_compress -X.cf
+
+override_dh_installinfo:
+
+override_dh_installchangelogs:
+	rm -f debian/cfengine-community/var/cfengine/share/doc/ChangeLog
+	dh_installchangelogs
+
+override_dh_install:
+	mkdir -p debian/cfengine-community/etc/profile.d/
+	cp debian/cfengine3.profile.sh debian/cfengine-community/etc/profile.d/cfengine3.sh
+	mkdir -p debian/cfengine-community/etc/init.d/
+	cp debian/cfengine3.init debian/cfengine-community/etc/init.d/cfengine3
+	mkdir -p debian/cfengine-community/etc/default
+	cp debian/cfengine3.default debian/cfengine-community/etc/default/cfengine3
+	dh_install
+	chmod 0700 debian/cfengine-community/var/cfengine/ppkeys

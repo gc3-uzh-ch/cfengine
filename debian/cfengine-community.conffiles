@@ -1,0 +1,3 @@
+/etc/profile.d/cfengine3.sh
+/etc/init.d/cfengine3
+/etc/default/cfengine3
